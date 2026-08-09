@@ -80,13 +80,7 @@ function renderData(data) {
             <p><strong>Type:</strong> ${type}</p>
             <p><strong>Categorie:</strong> ${category}</p>
             <p><strong>Postcode:</strong> ${postal}</p>
-            <p><strong>Gemeente:</strong> ${municipality}</p>
             ${item.google_maps ? `<p><a href="${item.google_maps}" target="_blank" class="map-link">Bekijk op kaart</a></p>` : ''}
-            <div class="card-actions">
-                <button class="favorite-btn text-btn" data-id="${index}">
-                    ${isFav ? '✕ verwijder' : '+ toevoegen'}
-                </button>
-            </div>
         `;
         container.appendChild(card);
     });
