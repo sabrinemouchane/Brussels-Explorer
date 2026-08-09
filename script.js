@@ -283,11 +283,23 @@ function setupFormValidation() {
 // ============================================
 
 function openDetail(index) {
+    console.log('Klik ontvangen op index:', index);
+    
     const item = filteredData[index];
-    if (!item) return;
+    console.log('Item gevonden:', item);
+    
+    if (!item) {
+        console.log('Geen item gevonden!');
+        return;
+    }
     
     const modal = document.getElementById('detailModal');
     const content = document.getElementById('detailContent');
+    
+    if (!modal || !content) {
+        console.log('Modal of content niet gevonden!');
+        return;
+    }
     
     const name = item.name || item.name_fr || 'Onbekend park';
     const type = item.type_txt || item.type || 'Onbekend';
@@ -295,34 +307,25 @@ function openDetail(index) {
     const postal = item.postalcode || 'Onbekend';
     const address = item.address_fr || item.address_nl || 'Geen adres beschikbaar';
     
-    // Probeer een foto te vinden (Google Street View als fallback)
-    const imageUrl = item.google_street_view || item.google_maps || '';
-    const hasImage = imageUrl.includes('google');
+    console.log('Data voor modal:', { name, type, category, postal, address });
     
     content.innerHTML = `
         <h2>${name}</h2>
         
-        ${hasImage ? `
-            <img src="${imageUrl}" alt="${name}" class="detail-image" 
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="detail-placeholder" style="display:none;">
-                Geen afbeelding beschikbaar
-            </div>
-        ` : `
-            <div class="detail-placeholder">
-                Geen afbeelding beschikbaar
-            </div>
-        `}
+        <div class="detail-placeholder">
+            Geen afbeelding beschikbaar
+        </div>
         
         <div class="detail-info"><strong>Type:</strong> ${type}</div>
         <div class="detail-info"><strong>Categorie:</strong> ${category}</div>
         <div class="detail-info"><strong>Postcode:</strong> ${postal}</div>
-        <div class="detail-info"><strong>Gemeente:</strong> ${municipality}</div>
         <div class="detail-info"><strong>Adres:</strong> ${address}</div>
     `;
     
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
+    
+    console.log('Modal zou nu zichtbaar moeten zijn!');
 }
 
 function closeDetail() {
