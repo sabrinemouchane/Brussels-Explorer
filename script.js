@@ -52,7 +52,7 @@ async function fetchData() {
 }
 
 // ============================================
-// DATA RENDEREN
+// DATA RENDEREN - Optie A
 // ============================================
 
 function renderData(data) {
@@ -82,10 +82,10 @@ function renderData(data) {
             <p><strong>Categorie:</strong> ${category}</p>
             <p><strong>Postcode:</strong> ${postal}</p>
             <p><strong>Gemeente:</strong> ${municipality}</p>
-            ${item.google_maps ? `<p><a href="${item.google_maps}" target="_blank">Bekijk op kaart</a></p>` : ''}
+            ${item.google_maps ? `<p><a href="${item.google_maps}" target="_blank" class="map-link">Bekijk op kaart</a></p>` : ''}
             <div class="card-actions">
-                <button class="favorite-btn" data-id="${index}">
-                    ${isFav ? 'Verwijder' : 'Toevoegen'}
+                <button class="favorite-btn text-btn" data-id="${index}">
+                    ${isFav ? '✕ verwijder' : '+ toevoegen'}
                 </button>
             </div>
         `;
@@ -220,7 +220,7 @@ function renderFavorites() {
         const name = item.name || item.name_fr || 'Onbekend park';
         div.innerHTML = `
             <span>${name}</span>
-            <button class="remove-fav" data-name="${name}">Verwijder</button>
+            <button class="remove-fav" data-name="${name}">✕</button>
         `;
         container.appendChild(div);
     });

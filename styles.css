@@ -273,3 +273,62 @@ header h1 {
 [data-theme="dark"] .favorite-btn:hover {
     background: #3498db;
 }
+
+/* Favorieten knop - klein en discreet */
+.favorite-btn.text-btn {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 2px 6px;
+    transition: color 0.3s ease;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+}
+
+.favorite-btn.text-btn:hover {
+    color: #1a5276;
+}
+
+/* Dark theme */
+[data-theme="dark"] .favorite-btn.text-btn {
+    color: #666;
+}
+
+[data-theme="dark"] .favorite-btn.text-btn:hover {
+    color: #4fc3f7;
+}
+
+/* Kaart link */
+.map-link {
+    color: #1a5276;
+    text-decoration: none;
+    font-size: 14px;
+    border-bottom: 1px dotted #1a5276;
+    transition: color 0.3s;
+}
+
+.map-link:hover {
+    color: #2e86c1;
+}
+
+[data-theme="dark"] .map-link {
+    color: #4fc3f7;
+    border-bottom-color: #4fc3f7;
+}
+
+/* Verwijder knop in favorieten */
+.remove-fav {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 4px;
+    transition: transform 0.2s;
+}
+
+.remove-fav:hover {
+    transform: scale(1.2);
+}
