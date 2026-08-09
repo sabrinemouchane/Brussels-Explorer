@@ -34,7 +34,7 @@ async function fetchData() {
             
             renderData(filteredData);
             renderFavorites();
-            initMap(fikteredData);
+            initMap(filteredData);
             
             console.log(allData.length + ' parken geladen!');
         } else {
