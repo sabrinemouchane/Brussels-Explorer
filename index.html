@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brussels Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <h1>🌍 Brussels Explorer</h1>
+        <div class="theme-switcher">
+            <button id="themeToggle">🌙</button>
+        </div>
+    </header>
 
+    <!-- FILTERS & CONTROLS -->
+    <section class="controls">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Zoek naar locaties...">
+        </div>
+        
+        <div class="filters">
+            <select id="typeFilter">
+                <option value="all">Alle types</option>
+            </select>
+            
+            <select id="sortOptions">
+                <option value="name">Sorteer op naam</option>
+                <option value="type">Sorteer op type</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- RESULTS -->
+    <main id="resultsContainer">
+        <p>Loading data...</p>
+    </main>
+
+    <!-- FAVORITES SIDEBAR -->
+    <aside id="favoritesSidebar">
+        <h2>⭐ Favorieten</h2>
+        <div id="favoritesList">
+            <p>Geen favorieten toegevoegd.</p>
+        </div>
+    </aside>
+
+    <script src="script.js"></script>
+</body>
+</html>

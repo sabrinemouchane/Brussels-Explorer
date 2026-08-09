@@ -1,1 +1,218 @@
+/* Algemene reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 20px;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a5276;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 28px;
+}
+
+#themeToggle {
+    background: none;
+    border: 2px solid white;
+    color: white;
+    font-size: 24px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#themeToggle:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* CONTROLS */
+.controls {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.search-box {
+    flex: 2;
+    min-width: 200px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filters select {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: white;
+}
+
+/* RESULTS */
+#resultsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* LOCATIE KAARTJES */
+.location-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.location-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.location-card h3 {
+    color: #1a5276;
+    margin-bottom: 10px;
+}
+
+.location-card p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.location-card .card-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.location-card .favorite-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.location-card .favorite-btn:hover {
+    transform: scale(1.2);
+}
+
+/* FAVORIETEN */
+#favoritesSidebar {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    bottom: 0;
+}
+
+#favoritesSidebar h2 {
+    margin-bottom: 15px;
+    color: #1a5276;
+}
+
+#favoritesList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.favorite-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f0f4f8;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.favorite-item .remove-fav {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* DARK THEME */
+[data-theme="dark"] body {
+    background-color: #1a1a2e;
+    color: #eee;
+}
+
+[data-theme="dark"] .controls,
+[data-theme="dark"] .location-card,
+[data-theme="dark"] #favoritesSidebar {
+    background-color: #16213e;
+    color: #eee;
+}
+
+[data-theme="dark"] .search-box input,
+[data-theme="dark"] .filters select {
+    background-color: #0f3460;
+    color: #eee;
+    border-color: #1a5276;
+}
+
+[data-theme="dark"] header {
+    background-color: #0f3460;
+}
+
+[data-theme="dark"] .location-card h3 {
+    color: #4fc3f7;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column;
+    }
+    
+    #resultsContainer {
+        grid-template-columns: 1fr;
+    }
+    
+    header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
