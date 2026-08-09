@@ -11,7 +11,6 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f5f5f5;
     color: #333;
-    transition: background-color 0.3s, color 0.3s;
     padding: 20px;
 }
 
@@ -31,22 +30,6 @@ header {
 
 header h1 {
     font-size: 28px;
-}
-
-#themeToggle {
-    background: none;
-    border: 2px solid white;
-    color: white;
-    font-size: 16px;
-    padding: 8px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-weight: 500;
-}
-
-#themeToggle:hover {
-    background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* ============================================
@@ -295,95 +278,6 @@ header h1 {
 
 .contact-form button[type="submit"]:hover {
     background: #0a8a57;
-}
-
-/* ============================================
-   DARK THEME
-   ============================================ */
-[data-theme="dark"] body {
-    background-color: #1a1a2e;
-    color: #eee;
-}
-
-[data-theme="dark"] header {
-    background-color: #05802a;
-}
-
-[data-theme="dark"] #themeToggle:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-[data-theme="dark"] .controls,
-[data-theme="dark"] .location-card,
-[data-theme="dark"] #favoritesSidebar,
-[data-theme="dark"] .contact-form {
-    background-color: #16213e;
-    color: #eee;
-}
-
-[data-theme="dark"] .search-box input,
-[data-theme="dark"] .filters select {
-    background-color: #0f1a2e;
-    color: #eee;
-    border-color: #2a3a5a;
-}
-
-[data-theme="dark"] .search-box input:focus,
-[data-theme="dark"] .filters select:focus {
-    border-color: #55f74f;
-}
-
-[data-theme="dark"] .location-card h3 {
-    color: #55f74f;
-}
-
-[data-theme="dark"] .favorite-btn.text-btn {
-    color: #666;
-}
-
-[data-theme="dark"] .favorite-btn.text-btn:hover {
-    color: #55f74f;
-}
-
-[data-theme="dark"] .map-link {
-    color: #55f74f;
-    border-bottom-color: #55f74f;
-}
-
-[data-theme="dark"] .map-link:hover {
-    color: #7aff7a;
-}
-
-[data-theme="dark"] .favorite-item {
-    background: #2c3e50;
-}
-
-[data-theme="dark"] #favoritesSidebar h2 {
-    color: #55f74f;
-}
-
-[data-theme="dark"] .contact-form h2 {
-    color: #55f74f;
-}
-
-[data-theme="dark"] .contact-form button[type="submit"] {
-    background: #05802a;
-}
-
-[data-theme="dark"] .contact-form button[type="submit"]:hover {
-    background: #0a8a57;
-}
-
-[data-theme="dark"] .form-group input,
-[data-theme="dark"] .form-group textarea {
-    background: #0f1a2e;
-    color: #eee;
-    border-color: #2a3a5a;
-}
-
-[data-theme="dark"] .form-group input:focus,
-[data-theme="dark"] .form-group textarea:focus {
-    border-color: #55f74f;
 }
 
 /* ============================================

@@ -4,7 +4,6 @@
 
 const API_URL = 'https://opendata.brussels.be/api/explore/v2.1/catalog/datasets/parcs_et_jardins_publics/records?limit=100';
 const STORAGE_KEY = 'brussels_favorites';
-const THEME_KEY = 'brussels_theme';
 
 let allData = [];
 let filteredData = [];
@@ -52,7 +51,7 @@ async function fetchData() {
 }
 
 // ============================================
-// DATA RENDEREN - Optie A
+// DATA RENDEREN
 // ============================================
 
 function renderData(data) {
@@ -239,38 +238,46 @@ function renderFavorites() {
 }
 
 // ============================================
-// THEME
+// FORMULIER VALIDATIE
 // ============================================
 
-function setupTheme() {
-    const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    updateThemeButton(savedTheme);
+function setupFormValidation() {
+    const form = document.getElementById('newsletterForm');
+    if (!form) return;
     
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.attributeName === 'data-theme') {
-                const theme = document.documentElement.getAttribute('data-theme');
-                localStorage.setItem(THEME_KEY, theme);
-                updateThemeButton(theme);
-            }
-        });
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        let isValid = true;
+        const email = document.getElementById('email');
+        const message = document.getElementById('message');
+        const emailError = document.getElementById('emailError');
+        const messageError = document.getElementById('messageError');
+        const feedback = document.getElementById('formFeedback');
+        
+        emailError.textContent = '';
+        messageError.textContent = '';
+        feedback.textContent = '';
+        email.style.borderColor = '';
+        message.style.borderColor = '';
+        
+        if (!email.value || !email.value.includes('@')) {
+            emailError.textContent = 'Vul een geldig e-mailadres in (met @).';
+            email.style.borderColor = 'red';
+            isValid = false;
+        }
+        
+        if (!message.value || message.value.length < 10) {
+            messageError.textContent = 'Bericht moet minstens 10 tekens bevatten.';
+            message.style.borderColor = 'red';
+            isValid = false;
+        }
+        
+        if (isValid) {
+            feedback.innerHTML = '<p style="color: green; padding: 10px; background: #e8f5e9; border-radius: 8px;">✅ Bedankt! Je bent ingeschreven voor de nieuwsbrief.</p>';
+            form.reset();
+        }
     });
-    
-    observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['data-theme']
-    });
-}
-
-function updateThemeButton(theme) {
-    const btn = document.getElementById('themeToggle');
-}
-
-function toggleTheme() {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
 }
 
 // ============================================
@@ -279,8 +286,8 @@ function toggleTheme() {
 
 document.addEventListener('DOMContentLoaded', function() {
     loadFavorites();
-    setupTheme();
     fetchData();
+    setupFormValidation();
     
     document.getElementById('searchInput').addEventListener('input', function() {
         setTimeout(applyFilters, 300);
@@ -288,7 +295,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.getElementById('typeFilter').addEventListener('change', applyFilters);
     document.getElementById('sortOptions').addEventListener('change', applyFilters);
-    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 });
 
 console.log('Brussels Explorer geladen!');
