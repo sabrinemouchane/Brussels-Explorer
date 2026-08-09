@@ -216,3 +216,60 @@ header h1 {
         gap: 10px;
     }
 }
+
+.favorite-btn {
+    background: #1a5276;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.favorite-btn:hover {
+    background: #2e86c1;
+    transform: scale(1.05);
+}
+
+/* Verwijder knop in favorieten */
+.remove-fav {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.remove-fav:hover {
+    background: #c0392b;
+    transform: scale(1.05);
+}
+
+/* Favorieten items */
+.favorite-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f0f4f8;
+    padding: 8px 15px;
+    border-radius: 20px;
+    margin: 5px 0;
+}
+
+[data-theme="dark"] .favorite-item {
+    background: #2c3e50;
+}
+
+[data-theme="dark"] .favorite-btn {
+    background: #2e86c1;
+}
+
+[data-theme="dark"] .favorite-btn:hover {
+    background: #3498db;
+}
