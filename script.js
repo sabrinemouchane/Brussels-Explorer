@@ -265,7 +265,6 @@ function setupTheme() {
 
 function updateThemeButton(theme) {
     const btn = document.getElementById('themeToggle');
-    btn.textContent = theme === 'dark' ? 'Licht thema' : 'Donker thema';
 }
 
 function toggleTheme() {

@@ -18,7 +18,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #1a5276;
+    background-color: #05802a;
     color: white;
     padding: 20px;
     border-radius: 10px;
@@ -41,7 +41,7 @@ header h1 {
 }
 
 #themeToggle:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(2, 97, 57, 0.395);
 }
 
 /* CONTROLS */
@@ -106,7 +106,7 @@ header h1 {
 }
 
 .location-card h3 {
-    color: #1a5276;
+    color: #05802a;
     margin-bottom: 10px;
 }
 
@@ -145,7 +145,7 @@ header h1 {
 
 #favoritesSidebar h2 {
     margin-bottom: 15px;
-    color: #1a5276;
+    color: #05802a;
 }
 
 #favoritesList {
@@ -187,17 +187,17 @@ header h1 {
 
 [data-theme="dark"] .search-box input,
 [data-theme="dark"] .filters select {
-    background-color: #0f3460;
+    background-color: #05802a;
     color: #eee;
-    border-color: #1a5276;
+    border-color: #05802a;
 }
 
 [data-theme="dark"] header {
-    background-color: #0f3460;
+    background-color: #05802a;
 }
 
 [data-theme="dark"] .location-card h3 {
-    color: #4fc3f7;
+    color: #55f74f;
 }
 
 /* RESPONSIVE */
@@ -218,7 +218,7 @@ header h1 {
 }
 
 .favorite-btn {
-    background: #1a5276;
+    background: #05802a;
     color: white;
     border: none;
     padding: 8px 16px;
@@ -230,7 +230,7 @@ header h1 {
 }
 
 .favorite-btn:hover {
-    background: #2e86c1;
+    background: #05802a;
     transform: scale(1.05);
 }
 
@@ -267,11 +267,11 @@ header h1 {
 }
 
 [data-theme="dark"] .favorite-btn {
-    background: #2e86c1;
+    background: #05802a;
 }
 
 [data-theme="dark"] .favorite-btn:hover {
-    background: #3498db;
+    background: #05802a;
 }
 
 /* Favorieten knop - klein en discreet */
@@ -288,7 +288,7 @@ header h1 {
 }
 
 .favorite-btn.text-btn:hover {
-    color: #1a5276;
+    color: #05802a;
 }
 
 /* Dark theme */
@@ -297,25 +297,25 @@ header h1 {
 }
 
 [data-theme="dark"] .favorite-btn.text-btn:hover {
-    color: #4fc3f7;
+    color: #05802a;
 }
 
 /* Kaart link */
 .map-link {
-    color: #1a5276;
+    color: #05802a;
     text-decoration: none;
     font-size: 14px;
-    border-bottom: 1px dotted #1a5276;
+    border-bottom: 1px dotted #05802a;
     transition: color 0.3s;
 }
 
 .map-link:hover {
-    color: #2e86c1;
+    color: #0a8a57;
 }
 
 [data-theme="dark"] .map-link {
-    color: #4fc3f7;
-    border-bottom-color: #4fc3f7;
+    color: #55f74f;
+    border-bottom-color: #55f74f;
 }
 
 /* Verwijder knop in favorieten */
