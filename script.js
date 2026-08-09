@@ -81,6 +81,11 @@ function renderData(data) {
             <p><strong>Categorie:</strong> ${category}</p>
             <p><strong>Postcode:</strong> ${postal}</p>
         `;
+
+         // Klik om detail te openen
+        card.addEventListener('click', function() {
+            openDetail(index);
+        });
         container.appendChild(card);
     });
     
@@ -288,7 +293,6 @@ function openDetail(index) {
     const type = item.type_txt || item.type || 'Onbekend';
     const category = item.category_nl || 'Groene ruimte';
     const postal = item.postalcode || 'Onbekend';
-    const municipality = item.municipality_nl || 'Brussel';
     const address = item.address_fr || item.address_nl || 'Geen adres beschikbaar';
     
     // Probeer een foto te vinden (Google Street View als fallback)
@@ -315,7 +319,6 @@ function openDetail(index) {
         <div class="detail-info"><strong>Postcode:</strong> ${postal}</div>
         <div class="detail-info"><strong>Gemeente:</strong> ${municipality}</div>
         <div class="detail-info"><strong>Adres:</strong> ${address}</div>
-        ${item.google_maps ? `<div class="detail-info"><a href="${item.google_maps}" target="_blank" class="map-link">Bekijk op kaart</a></div>` : ''}
     `;
     
     modal.style.display = 'block';
@@ -354,6 +357,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.getElementById('typeFilter').addEventListener('change', applyFilters);
     document.getElementById('sortOptions').addEventListener('change', applyFilters);
+
+        // Sluitknop voor modal
+    document.querySelector('.close-modal').addEventListener('click', closeDetail);
 });
 
 console.log('Brussels Explorer geladen!');
