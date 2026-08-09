@@ -267,7 +267,7 @@ function setupFormValidation() {
         }
         
         if (isValid) {
-            feedback.innerHTML = '<p style="color: green; padding: 10px; background: #e8f5e9; border-radius: 8px;">✅ Bedankt! Je bent ingeschreven voor de nieuwsbrief.</p>';
+            feedback.innerHTML = '<p style="color: green; padding: 10px; background: #e8f5e9; border-radius: 8px;">Bedankt! Je bent ingeschreven voor de nieuwsbrief.</p>';
             form.reset();
         }
     });
@@ -276,6 +276,72 @@ function setupFormValidation() {
 // ============================================
 // START
 // ============================================
+
+function openDetail(index) {
+    const item = filteredData[index];
+    if (!item) return;
+    
+    const modal = document.getElementById('detailModal');
+    const content = document.getElementById('detailContent');
+    
+    const name = item.name || item.name_fr || 'Onbekend park';
+    const type = item.type_txt || item.type || 'Onbekend';
+    const category = item.category_nl || 'Groene ruimte';
+    const postal = item.postalcode || 'Onbekend';
+    const municipality = item.municipality_nl || 'Brussel';
+    const address = item.address_fr || item.address_nl || 'Geen adres beschikbaar';
+    
+    // Probeer een foto te vinden (Google Street View als fallback)
+    const imageUrl = item.google_street_view || item.google_maps || '';
+    const hasImage = imageUrl.includes('google');
+    
+    content.innerHTML = `
+        <h2>${name}</h2>
+        
+        ${hasImage ? `
+            <img src="${imageUrl}" alt="${name}" class="detail-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="detail-placeholder" style="display:none;">
+                Geen afbeelding beschikbaar
+            </div>
+        ` : `
+            <div class="detail-placeholder">
+                Geen afbeelding beschikbaar
+            </div>
+        `}
+        
+        <div class="detail-info"><strong>Type:</strong> ${type}</div>
+        <div class="detail-info"><strong>Categorie:</strong> ${category}</div>
+        <div class="detail-info"><strong>Postcode:</strong> ${postal}</div>
+        <div class="detail-info"><strong>Gemeente:</strong> ${municipality}</div>
+        <div class="detail-info"><strong>Adres:</strong> ${address}</div>
+        ${item.google_maps ? `<div class="detail-info"><a href="${item.google_maps}" target="_blank" class="map-link">Bekijk op kaart</a></div>` : ''}
+    `;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+    const modal = document.getElementById('detailModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Sluit modal bij klik buiten de content
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('detailModal');
+    if (event.target === modal) {
+        closeDetail();
+    }
+});
+
+// Sluit modal met ESC toets
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeDetail();
+    }
+});
 
 document.addEventListener('DOMContentLoaded', function() {
     loadFavorites();
