@@ -49,6 +49,30 @@ async function fetchData() {
     }
 }
 
+function initMap(data) {
+    // Maak kaart aan (centrum van Brussel)
+    const map = L.map('map').setView([50.85, 4.35], 13);
+    
+    // Voeg achtergrondkaart toe (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+    
+    // Voeg markers toe voor elk park
+    data.forEach(item => {
+        if (item.geo_coord_wgs84) {
+            const lat = item.geo_coord_wgs84.lat;
+            const lon = item.geo_coord_wgs84.lon;
+            if (lat && lon) {
+                L.marker([lat, lon])
+                    .addTo(map)
+                    .bindPopup(`<b>${item.name || item.name_fr || 'Park'}</b><br>${item.type_txt || ''}`);
+            }
+        }
+    });
+}
+
 // ============================================
 // DATA RENDEREN
 // ============================================
