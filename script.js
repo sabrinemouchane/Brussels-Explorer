@@ -80,7 +80,6 @@ function renderData(data) {
             <p><strong>Type:</strong> ${type}</p>
             <p><strong>Categorie:</strong> ${category}</p>
             <p><strong>Postcode:</strong> ${postal}</p>
-            ${item.google_maps ? `<p><a href="${item.google_maps}" target="_blank" class="map-link">Bekijk op kaart</a></p>` : ''}
         `;
         container.appendChild(card);
     });
