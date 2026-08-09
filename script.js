@@ -99,17 +99,13 @@ function renderData(data) {
 // ============================================
 
 function applyFilters() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-    const typeFilter = document.getElementById('typeFilter').value;
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();    
     
     filteredData = allData.filter(function(item) {
         const name = (item.name || item.name_fr || '').toLowerCase();
         const type = item.type_txt || item.type || '';
-        
-        const matchesSearch = !searchTerm || name.includes(searchTerm);
-        const matchesType = typeFilter === 'all' || type === typeFilter;
-        
-        return matchesSearch && matchesType;
+        const matchesSearch = !searchTerm || name.includes(searchTerm);        
+        return matchesSearch;
     });
     
     applySorting();
@@ -357,8 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('searchInput').addEventListener('input', function() {
         setTimeout(applyFilters, 300);
     });
-    
-    document.getElementById('typeFilter').addEventListener('change', applyFilters);
+
     document.getElementById('sortOptions').addEventListener('change', applyFilters);
 
         // Sluitknop voor modal
