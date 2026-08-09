@@ -34,6 +34,7 @@ async function fetchData() {
             
             renderData(filteredData);
             renderFavorites();
+            initMap(fikteredData);
             
             console.log(allData.length + ' parken geladen!');
         } else {
@@ -132,6 +133,7 @@ function applyFilters() {
     });
     
     applySorting();
+    initMap(filiteredData);
 }
 
 // ============================================
