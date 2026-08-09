@@ -33,7 +33,6 @@ async function fetchData() {
             filteredData = [...allData];
             
             renderData(filteredData);
-            populateFilters(filteredData);
             renderFavorites();
             
             console.log(allData.length + ' parken geladen!');
@@ -109,25 +108,6 @@ function applyFilters() {
     });
     
     applySorting();
-}
-
-function populateFilters(data) {
-    const typeSelect = document.getElementById('typeFilter');
-    
-    const types = new Set();
-    data.forEach(function(item) {
-        const type = item.type_txt || item.type;
-        if (type) types.add(type);
-    });
-    
-    typeSelect.innerHTML = '<option value="all">Alle types</option>';
-    
-    types.forEach(function(type) {
-        const option = document.createElement('option');
-        option.value = type;
-        option.textContent = type;
-        typeSelect.appendChild(option);
-    });
 }
 
 // ============================================
