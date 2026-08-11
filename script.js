@@ -311,20 +311,20 @@ function openDetail(index) {
     
     console.log('Data voor modal:', { name, type, category, postal, address });
     
-    const imageHtml = `<div class="detail-placeholder">Geen afbeelding beschikbaar</div>`;
-
+    // AFBEELDING - MET ABSOLUUT PAD
+    let imageHtml = '';
+    if (name.includes('Place Saint-Lambert') || name.includes('Sint-Lambertusplein')) {
+        imageHtml = `<img src="./park.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;">`;
+    } else {
+        imageHtml = `<div class="detail-placeholder">📷 Geen afbeelding beschikbaar</div>`;
+    }    
     content.innerHTML = `
         <h2>${name}</h2>
-        
-        <div class="detail-placeholder">
-            Geen afbeelding beschikbaar
-        </div>
-        
+        ${imageHtml}
         <div class="detail-info"><strong>Type:</strong> ${type}</div>
         <div class="detail-info"><strong>Categorie:</strong> ${category}</div>
         <div class="detail-info"><strong>Postcode:</strong> ${postal}</div>
-        <div class="detail-info"><strong>Adres:</strong> ${address}</div>
-    `;
+        <div class="detail-info"><strong>Adres:</strong> ${address}</div>    `;
     
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
