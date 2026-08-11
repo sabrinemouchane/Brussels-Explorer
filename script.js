@@ -29,17 +29,22 @@ async function fetchData() {
         console.log('Data ontvangen:', data);
         
         if (data.results && data.results.length > 0) {
-            // Filter dubbele parken (alleen eerste Wijk Versailleslaan houden)
-            const uniqueNames = new Set();
-            let filteredResults = data.results.filter(item => {
-                const name = item.name_nl || item.name || '';
-                if (name.includes('Wijk Versailleslaan')) {
-                    if (uniqueNames.has('Wijk Versailleslaan')) {
-                        return false; // Dubbele overslaan
-                    }
-                    uniqueNames.add('Wijk Versailleslaan');
-                }
-                return true;
+        const uniqueNames = new Set();
+        let filteredResults = data.results.filter(item => {
+            const name = item.name_nl || item.name || '';
+
+            // Verwijder Kraatveldbos of Abtbos
+            if (name.includes('Kraatveldbos') || name.includes('Abtbos')) {
+               return false;
+            }
+    
+            if (name.includes('Wijk Versailleslaan')) {
+                if (uniqueNames.has('Wijk Versailleslaan')) {
+                      return false;
+              }
+              uniqueNames.add('Wijk Versailleslaan');
+             }
+            return true;
             });
 
             const stuyvenbergExists = filteredResults.some(item => {
