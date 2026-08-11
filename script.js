@@ -307,8 +307,14 @@ function openDetail(index) {
     const type = item.type_txt || item.type || 'Onbekend';
     const category = item.category_nl || 'Groene ruimte';
     const postal = item.postalcode || 'Onbekend';
-    const address = item.address_fr || item.address_nl || 'Geen adres beschikbaar';
-    
+
+     let address = item.address_nl || item.address_fr || 'Geen adres beschikbaar';
+    if (name.includes('Sint-Lambertusplein') || name.includes('Sint-Lambertusplein')) {
+        address = 'Sint-Lambertusplein, 1020 Brussel';
+    } else if (name.includes('UVC Brugmann') || name.includes('Brugmann')) {
+    address = 'Arthur Van Gehuchtenplein 4, 1020 Brussel';
+    }
+
     console.log('Data voor modal:', { name, type, category, postal, address });
     
     // AFBEELDING - MET ABSOLUUT PAD
