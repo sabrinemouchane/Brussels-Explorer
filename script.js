@@ -91,7 +91,7 @@ function renderData(data) {
         const card = document.createElement('div');
         card.className = 'location-card';
         
-        const name = item.name || item.name_fr || 'Onbekend park';
+        const name = item.name_nl || 'Onbekend park';
         const type = item.type_txt || item.type || 'Onbekend';
         const category = item.category_nl || 'Groene ruimte';
         const postal = item.postalcode || 'Onbekend';
@@ -303,7 +303,7 @@ function openDetail(index) {
         return;
     }
     
-    const name = item.name || item.name_fr || 'Onbekend park';
+    const name = item.name_nl || 'Onbekend park';
     const type = item.type_txt || item.type || 'Onbekend';
     const category = item.category_nl || 'Groene ruimte';
     const postal = item.postalcode || 'Onbekend';
