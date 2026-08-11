@@ -407,6 +407,8 @@ function openDetail(index) {
         address = 'Goede Herderpark, 1130 Brussel';
     } else if (name.includes('Prins Leopoldsquare')) {
         address = 'Prins Leopoldsquare, 1020 Brussel';
+    } else if (name.includes('Park van Laken')) {
+        address = 'Park van Laken, 1020 Brussel';
 
     }
 
@@ -453,6 +455,8 @@ function openDetail(index) {
         imageHtml = `<img src="./goedeherder.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else if (nameLower.includes('prins leopoldsquare') || nameLower.includes('square prince léopold')) {
         imageHtml = `<img src="./prinsleopold.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
+    } else if (nameLower.includes('park van laken') || nameLower.includes('parc de laeken')) {
+        imageHtml = `<img src="./laken.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else {
         imageHtml = `<div class="detail-placeholder"> Geen afbeelding beschikbaar</div>`;
     }
