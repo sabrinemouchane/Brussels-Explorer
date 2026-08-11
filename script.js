@@ -378,10 +378,12 @@ function openDetail(index) {
         address = 'Marguerite Durassquare, 1000 Brussel';
     } else if (name.includes('Hallepoortpark')) {
         address = 'Hallepoortpark, 1000 Brussel';
-    } else if (name.includes('Stuyvenberg') || name.includes('Bloemist')) {
+    } else if (name.includes('Stuyvenberg')) {
         address = 'Sobieskistraat, 1020 Brussel';
-    } else if (name.includes('Park in Brussel') || name.includes('postcode 1000')) {
+    } else if (name.includes('Park in Brussel')) {
         address = 'Koningsstraat - Brussel 1000';
+    } else if (name.includes('Goede Herderpark')) {
+        address = 'Goede Herderpark, 1130 Brussel';
 
     }
 
@@ -424,6 +426,8 @@ function openDetail(index) {
         imageHtml = `<img src="./stuyvenberg.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else if (nameLower.includes('park in brussel') || nameLower.includes('postcode 1000')) {
         imageHtml = `<img src="./standaard.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
+    } else if (nameLower.includes('goede herderpark') || nameLower.includes('parc du bon pasteur')) {
+        imageHtml = `<img src="./goedeherder.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else {
         imageHtml = `<div class="detail-placeholder"> Geen afbeelding beschikbaar</div>`;
     }
