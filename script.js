@@ -307,7 +307,7 @@ function openDetail(index) {
     const type = item.type_txt || item.type || 'Onbekend';
     const category = item.category_nl || 'Groene ruimte';
     const postal = item.postalcode || 'Onbekend';
-    const address = item.address_fr || item.address_nl || 'Geen adres beschikbaar';
+    const address = item.address_fr || item.address_nl || 'Arthur Van Gehuchtenplein 4, 1020 Brussel (Laken)';
     
     console.log('Data voor modal:', { name, type, category, postal, address });
     
@@ -315,8 +315,10 @@ function openDetail(index) {
     let imageHtml = '';
     if (name.includes('Place Saint-Lambert') || name.includes('Sint-Lambertusplein')) {
         imageHtml = `<img src="./park.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;">`;
+    } else if (name.includes('UVC Brugmann') || name.includes('Brugmann')) {
+    imageHtml = `<img src="./brugmann.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;">`;
     } else {
-        imageHtml = `<div class="detail-placeholder">📷 Geen afbeelding beschikbaar</div>`;
+        imageHtml = `<div class="detail-placeholder"> Geen afbeelding beschikbaar</div>`;
     }    
     content.innerHTML = `
         <h2>${name}</h2>
