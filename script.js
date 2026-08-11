@@ -312,23 +312,26 @@ function openDetail(index) {
     if (name.includes('Sint-Lambertusplein') || name.includes('Sint-Lambertusplein')) {
         address = 'Sint-Lambertusplein, 1020 Brussel';
     } else if (name.includes('UVC Brugmann') || name.includes('Brugmann')) {
-    address = 'Arthur Van Gehuchtenplein 4, 1020 Brussel';
+        address = 'Arthur Van Gehuchtenplein 4, 1020 Brussel';
     } else if (name.includes('Godhuis tuin 1') || name.includes('Godhuis tuin 1')) {
-    address = 'Grootgodshuisstraat 7, 1000 Brussel';
+        address = 'Grootgodshuisstraat 7, 1000 Brussel';
     } else if (name.includes('Bruyn Noordpark') || name.includes('Bruyn Noordpark')) {
-    address = 'Bruynstraat 153, 1120 Neder-Over-Heembeek';
+        address = 'Bruynstraat 153, 1120 Neder-Over-Heembeek';
     } else if (name.includes('Solbosch campus') || name.includes('Solbosch campus')) {
-    address = 'Frankelin Rooseveltlaan 50, 1050 Brussel';
+        address = 'Frankelin Rooseveltlaan 50, 1050 Brussel';
     } else if (name.includes('Koning Albert II-laan') || name.includes('Koning Albert II-laan')) {
-    address = 'Koning Albert II-laan, 1210 Brussel';
+        address = 'Koning Albert II-laan, 1210 Brussel';
     } else if (name.includes('Wijk Versailleslaan') || name.includes('Wijk Versailleslaan')) {
-    address = 'Versailleslaan - Beyseghemstraat, 1120 Brussel';
+        address = 'Versailleslaan - Beyseghemstraat, 1120 Brussel';
     } else if (name.includes('De Woelmontstraat') || name.includes('De Woelmonststraat')) {
-    address = 'De Woelmontstraat, 1120 Brussel';
+        address = 'De Woelmontstraat, 1120 Brussel';
     } else if (name.includes('Marie-Louisesquare') || name.includes('Marie-Louisesquare')) {
-    address = 'Marie-Louisesquare, 1000 Brussel';
+        address = 'Marie-Louisesquare, 1000 Brussel';
     } else if (name.includes('Clementinasquare') || name.includes('Clementinasquare')) {
-    address = 'Clementinasquare, 1020 Brussel';
+        address = 'Clementinasquare, 1020 Brussel';
+    } else if (name.includes('Tiny Forst') || name.includes('tiny forst')) {
+        address = 'Tiny Forest, 1120 Brussel';
+    
     }
 
     console.log('Data voor modal:', { name, type, category, postal, address });
@@ -357,6 +360,8 @@ function openDetail(index) {
     imageHtml = `<img src="./marielouise.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else if (nameLower.includes('clementinasquare') || nameLower.includes('square clémentine')) {
     imageHtml = `<img src="./clementina.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
+    } else if (nameLower.includes('tiny forest')) {
+    imageHtml = `<img src="./tiny.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else {
         imageHtml = `<div class="detail-placeholder"> Geen afbeelding beschikbaar</div>`;
     }
