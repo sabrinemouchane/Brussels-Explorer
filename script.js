@@ -380,6 +380,9 @@ function openDetail(index) {
         address = 'Hallepoortpark, 1000 Brussel';
     } else if (name.includes('Stuyvenberg') || name.includes('Bloemist')) {
         address = 'Sobieskistraat, 1020 Brussel';
+    } else if (name.includes('Park in Brussel') || name.includes('postcode 1000')) {
+        address = 'Koningsstraat - Brussel 1000';
+
     }
 
     console.log('Data voor modal:', { name, type, category, postal, address });
@@ -419,6 +422,8 @@ function openDetail(index) {
         imageHtml = `<img src="./hallepoort.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else if (nameLower.includes('stuyvenberg') || nameLower.includes('tuinen van de bloemist')) {
         imageHtml = `<img src="./stuyvenberg.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
+    } else if (nameLower.includes('park in brussel') || nameLower.includes('postcode 1000')) {
+        imageHtml = `<img src="./standaard.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else {
         imageHtml = `<div class="detail-placeholder"> Geen afbeelding beschikbaar</div>`;
     }
