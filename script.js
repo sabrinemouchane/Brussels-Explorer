@@ -315,9 +315,10 @@ function openDetail(index) {
     address = 'Arthur Van Gehuchtenplein 4, 1020 Brussel';
     } else if (name.includes('Godhuis tuin 1') || name.includes('Godhuis tuin 1')) {
     address = 'Grootgodshuisstraat 7, 1000 Brussel';
-} else if (name.includes('Bruyn Noordpark') || name.includes('Parc Bruyn Nord')) {
-    address = 'Rue Bruyn 153, 1120 Neder-Over-Heembeek';
-
+    } else if (name.includes('Bruyn Noordpark') || name.includes('Parc Bruyn Nord')) {
+    address = 'Bruynstraat 153, 1120 Neder-Over-Heembeek';
+    } else if (name.includes('Solbosch campus') || name.includes('Campus du Solbosch ')) {
+    address = 'Frankelin Rooseveltlaan 50, 1050 Brussel';
     }
 
     console.log('Data voor modal:', { name, type, category, postal, address });
@@ -334,6 +335,8 @@ function openDetail(index) {
         imageHtml = `<img src="./godhuis.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else if (nameLower.includes('bruyn noordpark') || nameLower.includes('parc bruyn nord')) {
     imageHtml = `<img src="./bruyn.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
+    } else if (nameLower.includes('solbosch campus') || nameLower.includes('campus du solbosch')) {
+    imageHtml = `<img src="./solbosch.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else {
         imageHtml = `<div class="detail-placeholder"> Geen afbeelding beschikbaar</div>`;
     }
