@@ -51,8 +51,7 @@ async function fetchData() {
                 const stuyvenberg = {
                     name_nl: 'Tuinen van de Bloemist van Stuyvenberg',
                     name_fr: 'Jardins du Fleuriste de Stuyvenberg',
-                    type_txt: 'Meso',
-                    type: 'Meso',
+                    type: '> 3 ha',
                     category_nl: 'Groene ruimte',
                     postalcode: '1020',
                     municipality_nl: 'Brussel',
@@ -62,6 +61,28 @@ async function fetchData() {
                 };
                 filteredResults.push(stuyvenberg);
                 console.log('Tuinen van de Bloemist van Stuyvenberg toegevoegd!');
+            }
+
+                        // Voeg Park van Laken toe
+            const parkVanLakenExists = filteredResults.some(item => {
+                const name = item.name_nl || item.name || '';
+                return name.includes('Park van Laken') || name.includes('Parc de Laeken');
+            });
+
+            if (!parkVanLakenExists) {
+                const parkVanLaken = {
+                    name_nl: 'Park van Laken',
+                    name_fr: 'Parc de Laeken',
+                    type: '0,5 < 3 ha',
+                    category_nl: 'Groene ruimte',
+                    postalcode: '1020',
+                    municipality_nl: 'Brussel',
+                    address_nl: 'Park van Laken, 1020 Brussel',
+                    google_maps: '',
+                    google_street_view: ''
+                };
+                filteredResults.push(parkVanLaken);
+                console.log('Park van Laken toegevoegd!');
             }
 
             allData = filteredResults;
