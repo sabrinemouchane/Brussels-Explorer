@@ -313,6 +313,9 @@ function openDetail(index) {
         address = 'Sint-Lambertusplein, 1020 Brussel';
     } else if (name.includes('UVC Brugmann') || name.includes('Brugmann')) {
     address = 'Arthur Van Gehuchtenplein 4, 1020 Brussel';
+    } else if (name.includes('Godhuis tuin 1') || name.includes('Godhuis tuin 1')) {
+    address = 'Grootgodshuisstraat 7, 1000 Brussel';
+
     }
 
     console.log('Data voor modal:', { name, type, category, postal, address });
