@@ -311,6 +311,8 @@ function openDetail(index) {
     
     console.log('Data voor modal:', { name, type, category, postal, address });
     
+    const imageHtml = `<div class="detail-placeholder">Geen afbeelding beschikbaar</div>`;
+
     content.innerHTML = `
         <h2>${name}</h2>
         
