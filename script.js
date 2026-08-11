@@ -42,14 +42,12 @@ async function fetchData() {
                 return true;
             });
 
-            // Voeg Tuinen van de Bloemist van Stuyvenberg toe (als die niet in de API zit)
             const stuyvenbergExists = filteredResults.some(item => {
                 const name = item.name_nl || item.name || '';
                 return name.includes('Stuyvenberg') || name.includes('Bloemist');
             });
 
             if (!stuyvenbergExists) {
-                // Maak een nep object aan voor Stuyvenberg
                 const stuyvenberg = {
                     name_nl: 'Tuinen van de Bloemist van Stuyvenberg',
                     name_fr: 'Jardins du Fleuriste de Stuyvenberg',
@@ -128,14 +126,17 @@ function renderData(data) {
     data.forEach((item, index) => {
         const card = document.createElement('div');
         card.className = 'location-card';
+        card.style.cursor = 'pointer';
         
-        const name = item.name_nl || 'Onbekend park';
+        // Naam met fallback voor naamloze parken
+        let name = item.name_nl || item.name || item.name_fr || 'Onbekend park';
+        if (name === 'Onbekend park' && item.postalcode) {
+            name = `Park in ${item.municipality_nl || 'Brussel'} (postcode ${item.postalcode})`;
+        }
+        
         const type = item.type_txt || item.type || 'Onbekend';
         const category = item.category_nl || 'Groene ruimte';
         const postal = item.postalcode || 'Onbekend';
-        const municipality = item.municipality_nl || 'Brussel';
-        
-        const isFav = favorites.some(fav => (fav.name || fav.name_fr) === (item.name || item.name_fr));
         
         card.innerHTML = `
             <h3>${name}</h3>
@@ -144,15 +145,11 @@ function renderData(data) {
             <p><strong>Postcode:</strong> ${postal}</p>
         `;
 
-         // Klik om detail te openen
+        // Klik om detail te openen
         card.addEventListener('click', function() {
             openDetail(index);
         });
         container.appendChild(card);
-    });
-    
-    document.querySelectorAll('.favorite-btn').forEach(btn => {
-        btn.addEventListener('click', handleFavoriteToggle);
     });
 }
 
@@ -164,14 +161,13 @@ function applyFilters() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();    
     
     filteredData = allData.filter(function(item) {
-        const name = (item.name || item.name_fr || '').toLowerCase();
-        const type = item.type_txt || item.type || '';
+        const name = (item.name_nl || item.name || item.name_fr || '').toLowerCase();
         const matchesSearch = !searchTerm || name.includes(searchTerm);        
         return matchesSearch;
     });
     
     applySorting();
-    initMap(filiteredData);
+    initMap(filteredData);
 }
 
 // ============================================
@@ -185,8 +181,8 @@ function applySorting() {
         let valueA, valueB;
         
         if (sortBy === 'name') {
-            valueA = (a.name || a.name_fr || '').toLowerCase();
-            valueB = (b.name || b.name_fr || '').toLowerCase();
+            valueA = (a.name_nl || a.name || a.name_fr || '').toLowerCase();
+            valueB = (b.name_nl || b.name || b.name_fr || '').toLowerCase();
         } else if (sortBy === 'type') {
             valueA = a.type_txt || a.type || '';
             valueB = b.type_txt || b.type || '';
@@ -319,7 +315,7 @@ function setupFormValidation() {
 }
 
 // ============================================
-// START
+// DETAIL WEERGAVE
 // ============================================
 
 function openDetail(index) {
@@ -340,44 +336,49 @@ function openDetail(index) {
         console.log('Modal of content niet gevonden!');
         return;
     }
+
+    // Naam met fallback voor naamloze parken
+    let name = item.name_nl || item.name || item.name_fr || 'Onbekend park';
+    if (name === 'Onbekend park' && item.postalcode) {
+        name = `Park in ${item.municipality_nl || 'Brussel'} (postcode ${item.postalcode})`;
+    }
     
-    const name = item.name_nl || 'Onbekend park';
     const type = item.type_txt || item.type || 'Onbekend';
     const category = item.category_nl || 'Groene ruimte';
     const postal = item.postalcode || 'Onbekend';
 
     let address = item.address_nl || item.address_fr || 'Geen adres beschikbaar';
-    if (name.includes('Sint-Lambertusplein') || name.includes('Sint-Lambertusplein')) {
+    if (name.includes('Sint-Lambertusplein')) {
         address = 'Sint-Lambertusplein, 1020 Brussel';
     } else if (name.includes('UVC Brugmann') || name.includes('Brugmann')) {
         address = 'Arthur Van Gehuchtenplein 4, 1020 Brussel';
-    } else if (name.includes('Godhuis tuin 1') || name.includes('Godhuis tuin 1')) {
+    } else if (name.includes('Godhuis')) {
         address = 'Grootgodshuisstraat 7, 1000 Brussel';
-    } else if (name.includes('Bruyn Noordpark') || name.includes('Bruyn Noordpark')) {
+    } else if (name.includes('Bruyn Noordpark')) {
         address = 'Bruynstraat 153, 1120 Neder-Over-Heembeek';
-    } else if (name.includes('Solbosch campus') || name.includes('Solbosch campus')) {
-        address = 'Frankelin Rooseveltlaan 50, 1050 Brussel';
-    } else if (name.includes('Koning Albert II-laan') || name.includes('Koning Albert II-laan')) {
+    } else if (name.includes('Solbosch')) {
+        address = 'Franklin Rooseveltlaan 50, 1050 Brussel';
+    } else if (name.includes('Koning Albert II-laan')) {
         address = 'Koning Albert II-laan, 1210 Brussel';
-    } else if (name.includes('Wijk Versailleslaan') || name.includes('Wijk Versailleslaan')) {
+    } else if (name.includes('Wijk Versailleslaan')) {
         address = 'Versailleslaan - Beyseghemstraat, 1120 Brussel';
-    } else if (name.includes('De Woelmontstraat') || name.includes('De Woelmonststraat')) {
+    } else if (name.includes('Woelmontstraat')) {
         address = 'De Woelmontstraat, 1120 Brussel';
-    } else if (name.includes('Marie-Louisesquare') || name.includes('Marie-Louisesquare')) {
+    } else if (name.includes('Marie-Louisesquare')) {
         address = 'Marie-Louisesquare, 1000 Brussel';
-    } else if (name.includes('Clementinasquare') || name.includes('Clementinasquare')) {
+    } else if (name.includes('Clementinasquare')) {
         address = 'Clementinasquare, 1020 Brussel';
-    } else if (name.includes('Tiny Forst') || name.includes('tiny forst')) {
+    } else if (name.includes('Tiny Forest')) {
         address = 'Tiny Forest, 1120 Brussel';
-    } else if (name.includes('Ambiorixsquare') || name.includes('Square Ambiorix')) {
+    } else if (name.includes('Ambiorixsquare')) {
         address = 'Ambiorixsquare, 1000 Brussel';
-    } else if (name.includes('Plantsoen de Meeûs') || name.includes('Square de Meeûs')) {
+    } else if (name.includes('Plantsoen de Meeûs')) {
         address = 'Plantsoen de Meeûs, 1000 Brussel';
-    } else if (name.includes('Marguerite Durassquare') || name.includes('Square Marguerite Duras')) {
+    } else if (name.includes('Marguerite Durassquare')) {
         address = 'Marguerite Durassquare, 1000 Brussel';
-    } else if (name.includes('Hallepoortpark') || name.includes('Parc de la Porte de Hal')) {
+    } else if (name.includes('Hallepoortpark')) {
         address = 'Hallepoortpark, 1000 Brussel';
-    } else if (name.includes('Tuinen van de Bloemist van Stuyvenberg') || name.includes('Stuyvenberg')) {
+    } else if (name.includes('Stuyvenberg') || name.includes('Bloemist')) {
         address = 'Sobieskistraat, 1020 Brussel';
     }
 
@@ -400,7 +401,7 @@ function openDetail(index) {
         imageHtml = `<img src="./albert.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else if (nameLower.includes('wijk versailleslaan') || nameLower.includes('cité av. de versailles')) {
         imageHtml = `<img src="./versailles.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
-    } else if (nameLower.includes('de woelmontstraat') || nameLower.includes('rue de woelmont')) {
+    } else if (nameLower.includes('woelmontstraat') || nameLower.includes('rue de woelmont')) {
         imageHtml = `<img src="./woelmont.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else if (nameLower.includes('marie-louisesquare') || nameLower.includes('square marie-louise')) {
         imageHtml = `<img src="./marielouise.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
@@ -416,7 +417,7 @@ function openDetail(index) {
         imageHtml = `<img src="./marguerite.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else if (nameLower.includes('hallepoortpark') || nameLower.includes('parc de la porte de hal')) {
         imageHtml = `<img src="./hallepoort.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
-    } else if (nameLower.includes('tuinen van de bloemist van stuyvenberg') || nameLower.includes('stuyvenberg')) {
+    } else if (nameLower.includes('stuyvenberg') || nameLower.includes('tuinen van de bloemist')) {
         imageHtml = `<img src="./stuyvenberg.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else {
         imageHtml = `<div class="detail-placeholder"> Geen afbeelding beschikbaar</div>`;
@@ -456,6 +457,10 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+// ============================================
+// START
+// ============================================
+
 document.addEventListener('DOMContentLoaded', function() {
     loadFavorites();
     fetchData();
@@ -465,9 +470,11 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(applyFilters, 300);
     });
 
-    document.getElementById('sortOptions').addEventListener('change', applyFilters);
+    document.getElementById('sortOptions').addEventListener('change', function() {
+        applyFilters();
+    });
 
-        // Sluitknop voor modal
+    // Sluitknop voor modal
     document.querySelector('.close-modal').addEventListener('click', closeDetail);
 });
 
