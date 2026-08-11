@@ -29,7 +29,45 @@ async function fetchData() {
         console.log('Data ontvangen:', data);
         
         if (data.results && data.results.length > 0) {
-            allData = data.results;
+            // Filter dubbele parken (alleen eerste Wijk Versailleslaan houden)
+            const uniqueNames = new Set();
+            let filteredResults = data.results.filter(item => {
+                const name = item.name_nl || item.name || '';
+                if (name.includes('Wijk Versailleslaan')) {
+                    if (uniqueNames.has('Wijk Versailleslaan')) {
+                        return false; // Dubbele overslaan
+                    }
+                    uniqueNames.add('Wijk Versailleslaan');
+                }
+                return true;
+            });
+
+            // Voeg Tuinen van de Bloemist van Stuyvenberg toe (als die niet in de API zit)
+            const stuyvenbergExists = filteredResults.some(item => {
+                const name = item.name_nl || item.name || '';
+                return name.includes('Stuyvenberg') || name.includes('Bloemist');
+            });
+
+            if (!stuyvenbergExists) {
+                // Maak een nep object aan voor Stuyvenberg
+                const stuyvenberg = {
+                    name_nl: 'Tuinen van de Bloemist van Stuyvenberg',
+                    name_fr: 'Jardins du Fleuriste de Stuyvenberg',
+                    type_txt: 'Meso',
+                    type: 'Meso',
+                    category_nl: 'Groene ruimte',
+                    postalcode: '1020',
+                    municipality_nl: 'Brussel',
+                    address_nl: 'Sobieskistraat, 1020 Brussel',
+                    google_maps: '',
+                    google_street_view: ''
+                };
+                filteredResults.push(stuyvenberg);
+                console.log('Tuinen van de Bloemist van Stuyvenberg toegevoegd!');
+            }
+
+            allData = filteredResults;
+            
             filteredData = [...allData];
             
             renderData(filteredData);
@@ -308,7 +346,7 @@ function openDetail(index) {
     const category = item.category_nl || 'Groene ruimte';
     const postal = item.postalcode || 'Onbekend';
 
-     let address = item.address_nl || item.address_fr || 'Geen adres beschikbaar';
+    let address = item.address_nl || item.address_fr || 'Geen adres beschikbaar';
     if (name.includes('Sint-Lambertusplein') || name.includes('Sint-Lambertusplein')) {
         address = 'Sint-Lambertusplein, 1020 Brussel';
     } else if (name.includes('UVC Brugmann') || name.includes('Brugmann')) {
@@ -337,12 +375,15 @@ function openDetail(index) {
         address = 'Plantsoen de Meeûs, 1000 Brussel';
     } else if (name.includes('Marguerite Durassquare') || name.includes('Square Marguerite Duras')) {
         address = 'Marguerite Durassquare, 1000 Brussel';
+    } else if (name.includes('Hallepoortpark') || name.includes('Parc de la Porte de Hal')) {
+        address = 'Hallepoortpark, 1000 Brussel';
+    } else if (name.includes('Tuinen van de Bloemist van Stuyvenberg') || name.includes('Stuyvenberg')) {
+        address = 'Sobieskistraat, 1020 Brussel';
     }
 
     console.log('Data voor modal:', { name, type, category, postal, address });
     
-    // AFBEELDING - MET ABSOLUUT PAD
-       let imageHtml = '';
+    let imageHtml = '';
     const nameLower = name.toLowerCase();
     
     if (nameLower.includes('sint-lambertusplein') || nameLower.includes('place saint-lambert')) {
@@ -373,6 +414,10 @@ function openDetail(index) {
         imageHtml = `<img src="./meeus.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else if (nameLower.includes('marguerite durassquare') || nameLower.includes('square marguerite duras')) {
         imageHtml = `<img src="./marguerite.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
+    } else if (nameLower.includes('hallepoortpark') || nameLower.includes('parc de la porte de hal')) {
+        imageHtml = `<img src="./hallepoort.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
+    } else if (nameLower.includes('tuinen van de bloemist van stuyvenberg') || nameLower.includes('stuyvenberg')) {
+        imageHtml = `<img src="./stuyvenberg.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else {
         imageHtml = `<div class="detail-placeholder"> Geen afbeelding beschikbaar</div>`;
     }
