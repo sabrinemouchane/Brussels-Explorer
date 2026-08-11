@@ -321,14 +321,18 @@ function openDetail(index) {
     console.log('Data voor modal:', { name, type, category, postal, address });
     
     // AFBEELDING - MET ABSOLUUT PAD
-    let imageHtml = '';
-    if (name.includes('Place Saint-Lambert') || name.includes('Sint-Lambertusplein')) {
-        imageHtml = `<img src="./park.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;">`;
-    } else if (name.includes('UVC Brugmann') || name.includes('Brugmann')) {
-    imageHtml = `<img src="./brugmann.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;">`;
+       let imageHtml = '';
+    const nameLower = name.toLowerCase();
+    
+    if (nameLower.includes('sint-lambertusplein') || nameLower.includes('place saint-lambert')) {
+        imageHtml = `<img src="./park.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
+    } else if (nameLower.includes('uvc brugmann') || nameLower.includes('brugmann')) {
+        imageHtml = `<img src="./brugmann.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
+    } else if (nameLower.includes('godhuis') || nameLower.includes('hospice')) {
+        imageHtml = `<img src="./godhuis.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else {
         imageHtml = `<div class="detail-placeholder"> Geen afbeelding beschikbaar</div>`;
-    }    
+    }
     content.innerHTML = `
         <h2>${name}</h2>
         ${imageHtml}
