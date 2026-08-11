@@ -307,7 +307,7 @@ function openDetail(index) {
     const type = item.type_txt || item.type || 'Onbekend';
     const category = item.category_nl || 'Groene ruimte';
     const postal = item.postalcode || 'Onbekend';
-    const address = item.address_fr || item.address_nl || 'Arthur Van Gehuchtenplein 4, 1020 Brussel (Laken)';
+    const address = item.address_fr || item.address_nl || 'Geen adres beschikbaar';
     
     console.log('Data voor modal:', { name, type, category, postal, address });
     
