@@ -161,26 +161,31 @@ header h1 {
 }
 
 /* ============================================
-   FAVORIETEN SIDEBAR
+   FAVORIETEN - BOVEN DE KAART
    ============================================ */
 #favoritesSidebar {
     background-color: white;
-    padding: 20px;
+    padding: 15px 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: sticky;
-    bottom: 0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 #favoritesSidebar h2 {
-    margin-bottom: 15px;
+    margin: 0;
     color: #05802a;
+    font-size: 18px;
 }
 
 #favoritesList {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    flex: 1;
 }
 
 .favorite-item {
@@ -188,8 +193,9 @@ header h1 {
     align-items: center;
     gap: 10px;
     background-color: #f0f4f8;
-    padding: 8px 15px;
+    padding: 6px 14px;
     border-radius: 20px;
+    font-size: 14px;
 }
 
 .favorite-item span {
