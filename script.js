@@ -29,46 +29,26 @@ async function fetchData() {
         console.log('Data ontvangen:', data);
         
         if (data.results && data.results.length > 0) {
-        const uniqueNames = new Set();
-        let filteredResults = data.results.filter(item => {
-            const name = item.name_nl || item.name || '';
-
-            // Verwijder Kraatveldbos of Abtbos
-            if (name.includes('Kraatveldbos') || name.includes('Abtbos')) {
-               return false;
-            }
-    
-            if (name.includes('Wijk Versailleslaan')) {
-                if (uniqueNames.has('Wijk Versailleslaan')) {
-                      return false;
-              }
-              uniqueNames.add('Wijk Versailleslaan');
-             }
-            return true;
-            });
-
-            const stuyvenbergExists = filteredResults.some(item => {
+            // Filter dubbele parken en Kraatveldbos
+            const uniqueNames = new Set();
+            let filteredResults = data.results.filter(item => {
                 const name = item.name_nl || item.name || '';
-                return name.includes('Stuyvenberg') || name.includes('Bloemist');
+                
+                // Verwijder Kraatveldbos of Abtbos
+                if (name.includes('Kraatveldbos') || name.includes('Abtbos')) {
+                    return false;
+                }
+                
+                if (name.includes('Wijk Versailleslaan')) {
+                    if (uniqueNames.has('Wijk Versailleslaan')) {
+                        return false;
+                    }
+                    uniqueNames.add('Wijk Versailleslaan');
+                }
+                return true;
             });
 
-            if (!stuyvenbergExists) {
-                const stuyvenberg = {
-                    name_nl: 'Tuinen van de Bloemist van Stuyvenberg',
-                    name_fr: 'Jardins du Fleuriste de Stuyvenberg',
-                    type: '> 3 ha',
-                    category_nl: 'Groene ruimte',
-                    postalcode: '1020',
-                    municipality_nl: 'Brussel',
-                    address_nl: 'Sobieskistraat, 1020 Brussel',
-                    google_maps: '',
-                    google_street_view: ''
-                };
-                filteredResults.push(stuyvenberg);
-                console.log('Tuinen van de Bloemist van Stuyvenberg toegevoegd!');
-            }
-
-                        // Voeg Park van Laken toe
+            // Voeg Park van Laken toe
             const parkVanLakenExists = filteredResults.some(item => {
                 const name = item.name_nl || item.name || '';
                 return name.includes('Park van Laken') || name.includes('Parc de Laeken');
@@ -78,7 +58,8 @@ async function fetchData() {
                 const parkVanLaken = {
                     name_nl: 'Park van Laken',
                     name_fr: 'Parc de Laeken',
-                    type: '0,5 < 3 ha',
+                    type_txt: '0,5 < 3 ha',
+                    type: 'Meso',
                     category_nl: 'Groene ruimte',
                     postalcode: '1020',
                     municipality_nl: 'Brussel',
@@ -90,13 +71,35 @@ async function fetchData() {
                 console.log('Park van Laken toegevoegd!');
             }
 
+            // Voeg Stuyvenberg toe
+            const stuyvenbergExists = filteredResults.some(item => {
+                const name = item.name_nl || item.name || '';
+                return name.includes('Stuyvenberg') || name.includes('Bloemist');
+            });
+
+            if (!stuyvenbergExists) {
+                const stuyvenberg = {
+                    name_nl: 'Tuinen van de Bloemist van Stuyvenberg',
+                    name_fr: 'Jardins du Fleuriste de Stuyvenberg',
+                    type_txt: 'Meso',
+                    type: 'Meso',
+                    category_nl: 'Groene ruimte',
+                    postalcode: '1020',
+                    municipality_nl: 'Brussel',
+                    address_nl: 'Sobieskistraat, 1020 Brussel',
+                    google_maps: '',
+                    google_street_view: ''
+                };
+                filteredResults.push(stuyvenberg);
+                console.log('Tuinen van de Bloemist van Stuyvenberg toegevoegd!');
+            }
+
             allData = filteredResults;
-            
             filteredData = [...allData];
             
             renderData(filteredData);
-            renderFavorites();
             initMap(filteredData);
+            updateFavCount(); // Alleen de teller bijwerken
             
             console.log(allData.length + ' parken geladen!');
         } else {
@@ -232,13 +235,22 @@ function applySorting() {
 // FAVORIETEN
 // ============================================
 
+function updateFavCount() {
+    const favCount = document.getElementById('favCount');
+    if (favCount) {
+        favCount.textContent = favorites.length;
+    }
+}
+
 function loadFavorites() {
     const stored = localStorage.getItem(STORAGE_KEY);
     favorites = stored ? JSON.parse(stored) : [];
+    updateFavCount();
 }
 
 function saveFavorites() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
+    updateFavCount();
 }
 
 function handleFavoriteToggle(event) {
@@ -265,12 +277,20 @@ function handleFavoriteToggle(event) {
 }
 
 function renderFavorites() {
-    const container = document.getElementById('favoritesList');
-    container.innerHTML = '';
+    // Update alleen de teller in de header
+    const favCount = document.getElementById('favCount');
+    if (favCount) {
+        favCount.textContent = favorites.length;
+    }
     
-    if (!favorites || favorites.length === 0) {
-        container.innerHTML = '<p>Geen favoriete parken toegevoegd.</p>';
-        return;
+    // Update de knop tekst als die bestaat
+    const toggleBtn = document.getElementById('favoritesToggle');
+    if (toggleBtn) {
+        if (showOnlyFavorites) {
+            toggleBtn.innerHTML = 'Favorieten (' + favorites.length + ')';
+        } else {
+            toggleBtn.innerHTML = 'Favorieten (' + favorites.length + ')';
+        }
     }
     
     favorites.forEach(function(item) {
@@ -515,10 +535,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('sortOptions').addEventListener('change', function() {
         applyFilters();
+
+    
     });
 
     // Sluitknop voor modal
     document.querySelector('.close-modal').addEventListener('click', closeDetail);
+
+    // ============================================
+// FAVORIETEN FILTER (Alleen favorieten tonen)
+// ============================================
+
+let showOnlyFavorites = false;
+
+function toggleFavoritesView() {
+    showOnlyFavorites = !showOnlyFavorites;
+    const toggleBtn = document.getElementById('favoritesToggle');
+    
+    if (showOnlyFavorites) {
+        toggleBtn.classList.add('active');
+        toggleBtn.innerHTML = 'Favorieten (<span id="favCount">' + favorites.length + '</span>)';
+        applyFilters();
+    } else {
+        toggleBtn.classList.remove('active');
+        toggleBtn.innerHTML = 'Favorieten (<span id="favCount">' + favorites.length + '</span>)';
+        applyFilters();
+    }
+}
+
+// Update favorieten teller
+function updateFavCount() {
+    document.getElementById('favCount').textContent = `(${favorites.length})`;
+}
+
+// Voeg dit toe in renderFavorites() en loadFavorites()
+function updateFavoritesUI() {
+    updateFavCount();
+    renderFavorites();
+}
 });
 
 console.log('Brussels Explorer geladen!');

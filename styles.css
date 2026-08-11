@@ -19,7 +19,6 @@ body {
    ============================================ */
 header {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     background-color: #1cb249d7;
@@ -27,20 +26,65 @@ header {
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
-    text-align: center;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
 }
 
 header h1 {
     font-size: 28px;
     font-weight: 700;
-    margin-bottom: 5px;
+    margin: 0px;
 }
 
 .subtitle {
     font-size: 18px;
     font-weight: 300;
     opacity: 0.9;
+    margin: 0;
     letter-spacing: 0.5px;
+}
+
+/* Favorieten knop in header */
+.favorites-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.favorites-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.favorites-btn.active {
+    background: #f1c40f;
+    color: #333;
+    border-color: #f1c40f;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 20px;
+    }
+    
+    .favorites-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }
 
 /* ============================================
@@ -169,63 +213,6 @@ header h1 {
 
 .map-link:hover {
     color: #0a8a57;
-}
-
-/* ============================================
-   FAVORIETEN - BOVEN DE KAART
-   ============================================ */
-#favoritesSidebar {
-    background-color: white;
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-#favoritesSidebar h2 {
-    margin: 0;
-    color: #05802a;
-    font-size: 18px;
-}
-
-#favoritesList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    flex: 1;
-}
-
-.favorite-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #f0f4f8;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 14px;
-}
-
-.favorite-item span {
-    font-size: 14px;
-}
-
-.remove-fav {
-    background: none;
-    border: none;
-    color: #e74c3c;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 0 4px;
-    transition: transform 0.2s;
-    font-weight: bold;
-}
-
-.remove-fav:hover {
-    transform: scale(1.2);
 }
 
 /* ============================================
