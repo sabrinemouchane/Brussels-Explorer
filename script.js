@@ -323,6 +323,8 @@ function openDetail(index) {
     address = 'Koning Albert II-laan, 1210 Brussel';
     } else if (name.includes('Wijk Versailleslaan') || name.includes('Wijk Versailleslaan')) {
     address = 'Versailleslaan - Beyseghemstraat, 1120 Brussel';
+    } else if (name.includes('De Woelmontstraat') || name.includes('De Woelmonststraat')) {
+    address = 'De Woelmontstraat, 1120 Brussel';
     }
 
     console.log('Data voor modal:', { name, type, category, postal, address });
@@ -345,6 +347,8 @@ function openDetail(index) {
     imageHtml = `<img src="./albert.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else if (nameLower.includes('wijk versailleslaan') || nameLower.includes('cité av. de versailles')) {
     imageHtml = `<img src="./versailles.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
+    } else if (nameLower.includes('de woelmontstraat') || nameLower.includes('rue de woelmont')) {
+    imageHtml = `<img src="./woelmont.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else {
         imageHtml = `<div class="detail-placeholder"> Geen afbeelding beschikbaar</div>`;
     }
