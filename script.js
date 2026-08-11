@@ -2,7 +2,7 @@
 // BRUSSELS EXPLORER - PARKEN DATASET
 // ============================================
 
-const API_URL = 'https://opendata.brussels.be/api/explore/v2.1/catalog/datasets/parcs_et_jardins_publics/records?limit=100';
+const API_URL = 'https://opendata.brussels.be/api/explore/v2.1/catalog/datasets/parcs_et_jardins_publics/records?limit=20';
 const STORAGE_KEY = 'brussels_favorites';
 
 let allData = [];
