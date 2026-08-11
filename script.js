@@ -327,6 +327,8 @@ function openDetail(index) {
     address = 'De Woelmontstraat, 1120 Brussel';
     } else if (name.includes('Marie-Louisesquare') || name.includes('Marie-Louisesquare')) {
     address = 'Marie-Louisesquare, 1000 Brussel';
+    } else if (name.includes('Clementinasquare') || name.includes('Clementinasquare')) {
+    address = 'Clementinasquare, 1020 Brussel';
     }
 
     console.log('Data voor modal:', { name, type, category, postal, address });
@@ -353,6 +355,8 @@ function openDetail(index) {
     imageHtml = `<img src="./woelmont.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else if (nameLower.includes('marie-louisesquare') || nameLower.includes('square marie-louise')) {
     imageHtml = `<img src="./marielouise.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
+    } else if (nameLower.includes('clementinasquare') || nameLower.includes('square clémentine')) {
+    imageHtml = `<img src="./clementina.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else {
         imageHtml = `<div class="detail-placeholder"> Geen afbeelding beschikbaar</div>`;
     }
