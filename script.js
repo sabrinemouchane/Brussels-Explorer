@@ -331,7 +331,8 @@ function openDetail(index) {
         address = 'Clementinasquare, 1020 Brussel';
     } else if (name.includes('Tiny Forst') || name.includes('tiny forst')) {
         address = 'Tiny Forest, 1120 Brussel';
-    
+    } else if (name.includes('Ambiorixsquare') || name.includes('Square Ambiorix')) {
+        address = 'Ambiorixsquare, 1000 Brussel';
     }
 
     console.log('Data voor modal:', { name, type, category, postal, address });
@@ -362,6 +363,8 @@ function openDetail(index) {
     imageHtml = `<img src="./clementina.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else if (nameLower.includes('tiny forest')) {
     imageHtml = `<img src="./tiny.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
+    } else if (nameLower.includes('ambiorixsquare') || nameLower.includes('square ambiorix')) {
+    imageHtml = `<img src="./ambiorix.jpg" alt="${name}" class="detail-image" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px;" onerror="this.outerHTML='<div class=\\'detail-placeholder\\'>Foto niet gevonden</div>';">`;
     } else {
         imageHtml = `<div class="detail-placeholder"> Geen afbeelding beschikbaar</div>`;
     }
