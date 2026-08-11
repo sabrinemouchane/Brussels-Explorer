@@ -32,6 +32,14 @@ header h1 {
     font-size: 28px;
 }
 
+.subtitle {
+    font-size: 16px;
+    font-weight: 300;
+    opacity: 0.8;
+    margin-top: 5px;
+    letter-spacing: 0.5px;
+}
+
 /* ============================================
    CONTROLES (Zoekbalk + Filters)
    ============================================ */
