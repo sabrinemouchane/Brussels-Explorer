@@ -535,12 +535,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('sortOptions').addEventListener('change', function() {
         applyFilters();
-
-    
     });
+
+    document.getElementById('favoritesToggle').addEventListener('click', toggleFavoritesView);
 
     // Sluitknop voor modal
     document.querySelector('.close-modal').addEventListener('click', closeDetail);
+    
 
     // ============================================
 // FAVORIETEN FILTER (Alleen favorieten tonen)
