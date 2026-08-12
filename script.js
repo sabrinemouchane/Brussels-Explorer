@@ -539,13 +539,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('favoritesToggle').addEventListener('click', toggleFavoritesView);
 
-    // Sluitknop voor modal
     document.querySelector('.close-modal').addEventListener('click', closeDetail);
-    
+});
 
-    // ============================================
-// FAVORIETEN FILTER (Alleen favorieten tonen)
+console.log('Brussels Explorer geladen!');
 // ============================================
+// FAVORIETEN
+// ============================================
+
+function loadFavorites() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    favorites = stored ? JSON.parse(stored) : [];
+    updateFavCount();
+    renderTopFavorites();
+}
+
+function saveFavorites() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
+    updateFavCount();
+    renderTopFavorites();
+}
+
+function updateFavCount() {
+    const favCount = document.getElementById('favCount');
+    if (favCount) {
+        favCount.textContent = favorites.length;
+    }
+}
+
+function renderTopFavorites() {
+    const section = document.getElementById('favoritesSection');
+    const container = document.getElementById('favoritesTopList');
+    
+    if (!section || !container) return;
+    
+    if (favorites.length === 0) {
+        section.style.display = 'none';
+        return;
+    }
 
 let showOnlyFavorites = false;
 
@@ -555,25 +586,40 @@ function toggleFavoritesView() {
     
     if (showOnlyFavorites) {
         toggleBtn.classList.add('active');
-        toggleBtn.innerHTML = 'Favorieten (<span id="favCount">' + favorites.length + '</span>)';
+        toggleBtn.innerHTML = '+ Favorieten (' + favorites.length + ') ✅';
         applyFilters();
     } else {
         toggleBtn.classList.remove('active');
-        toggleBtn.innerHTML = 'Favorieten (<span id="favCount">' + favorites.length + '</span>)';
+        toggleBtn.innerHTML = '+ Favorieten (' + favorites.length + ')';
         applyFilters();
     }
 }
-
-// Update favorieten teller
-function updateFavCount() {
-    document.getElementById('favCount').textContent = `(${favorites.length})`;
+// ============================================
+// FORMULIER VALIDATIE
+// ============================================
+    section.style.display = 'block';
+    container.innerHTML = '';
+    
+    favorites.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'fav-item';
+        const name = item.name_nl || item.name || item.name_fr || 'Onbekend park';
+        div.innerHTML = `
+            <span> + ${name}</span>
+            <button class="remove-fav-top" data-index="${index}">✕</button>
+        `;
+        container.appendChild(div);
+    });
+    
+    document.querySelectorAll('.remove-fav-top').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const idx = parseInt(e.target.dataset.index);
+            favorites.splice(idx, 1);
+            saveFavorites();
+            renderData(filteredData);
+            applyFilters();
+        });
+    });
 }
-
-// Voeg dit toe in renderFavorites() en loadFavorites()
-function updateFavoritesUI() {
-    updateFavCount();
-    renderFavorites();
-}
-});
 
 console.log('Brussels Explorer geladen!');

@@ -417,3 +417,50 @@ header h1 {
     background: #0f1a2e;
     color: #666;
 }
+
+/* ============================================
+   FAVORIETEN BOVENAAN
+   ============================================ */
+#favoritesSection {
+    background: #e8f5e9;
+    border: 2px solid #05802a;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+}
+
+#favoritesSection h2 {
+    color: #05802a;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.favorites-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.fav-item {
+    background: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #05802a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.fav-item .remove-fav-top {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.fav-item .remove-fav-top:hover {
+    transform: scale(1.2);
+}
