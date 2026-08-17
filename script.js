@@ -528,6 +528,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadFavorites();
     fetchData();
     setupFormValidation();
+    setupObserver();
     
     document.getElementById('searchInput').addEventListener('input', function() {
         setTimeout(applyFilters, 300);
@@ -620,6 +621,27 @@ function toggleFavoritesView() {
             applyFilters();
         });
     });
+
+    // ============================================
+// OBSERVER API
+// ============================================
+
+function setupObserver() {
+    const targetNode = document.getElementById('favoritesSection');
+    if (!targetNode) return;
+    
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.attributeName === 'style') {
+                console.log('Favorieten sectie is veranderd!');
+            }
+        });
+    });
+    
+    observer.observe(targetNode, { attributes: true, attributeFilter: ['style'] });
+    console.log('Observer API is actief!');
+}
+
 }
 
 console.log('Brussels Explorer geladen!');
